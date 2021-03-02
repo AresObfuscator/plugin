@@ -1,0 +1,3 @@
+rootProject.name = 'obfuscator-plugin'
+include 'testing'
+

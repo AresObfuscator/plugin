@@ -1,0 +1,59 @@
+plugins {
+    id "com.gradle.plugin-publish" version "0.13.0"
+    id 'java-gradle-plugin'
+}
+
+project.group='com.arkoisystems'
+project.version='1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+}
+
+gradlePlugin {
+    plugins {
+        obfuscator {
+            id = "com.arkoisystems.obfuscator-plugin"
+            implementationClass = "com.arkoisystems.obfuscator.ObfuscatorPlugin"
+        }
+    }
+}
+
+pluginBundle {
+    website = "https://ares.arkoisystems.com/"
+    description = "The offical ARES plugin for your gradle projects."
+    vcsUrl = "https://github.com/Excse/AresObfuscator/plugin"
+    tags = ["ares", "obfuscator", "arkoisystems"]
+    
+    plugins {
+        obfuscator {
+            displayName = "Ares Obfuscator Plugin"
+        }
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    
+    testCompileOnly 'org.projectlombok:lombok:1.18.16'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+}
+
+test {
+    useJUnitPlatform()
+}
